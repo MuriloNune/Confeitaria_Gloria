@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delícias da Glorinha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fff5f5; /* Rosa bem suave */
+            color: #5a4a4a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animação de fade in para imagens */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        img {
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo img {
+            max-height: 70px;
+            width: auto;
+            border-radius: 50%; /* Logo redonda */
+            object-fit: cover; /* Garante que a imagem se ajuste bem */
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #b57c7c;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #d4a5a5;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #fce4e4 0%, #fff5f5 100%);
+        }
+
+        .hero img {
+            max-width: 200px;
+            border-radius: 50%; /* Logo redonda no hero também */
+            object-fit: cover;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            color: #b57c7c;
+            margin-top: 20px;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            color: #7a6a6a;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        /* Produtos */
+        .produtos {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+
+        .produtos h2 {
+            text-align: center;
+            color: #b57c7c;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff5f5;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .card h3 {
+            color: #b57c7c;
+            margin: 15px 0 10px;
+            font-size: 1.5em;
+        }
+
+        .card p {
+            color: #7a6a6a;
+            padding: 0 15px 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #d4a5a5;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin: 10px 0;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #b57c7c;
+        }
+
+        /* Sobre */
+        .sobre {
+            padding: 60px 0;
+            background-color: #fce4e4;
+        }
+
+        .sobre-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .sobre-texto h2 {
+            color: #b57c7c;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .sobre-texto p {
+            color: #5a4a4a;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .sobre-imagem img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+
+        .faq h2 {
+            text-align: center;
+            color: #b57c7c;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .faq-item {
+            background: #fff5f5;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            background: #fce4e4;
+        }
+
+        .faq-pergunta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #b57c7c;
+        }
+
+        .faq-resposta {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: #5a4a4a;
+            margin-top: 10px;
+        }
+
+        .faq-item.ativo .faq-resposta {
+            max-height: 200px;
+        }
+
+        /* Contato */
+        .contato {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #fff5f5 0%, #fce4e4 100%);
+            text-align: center;
+        }
+
+        .contato h2 {
+            color: #b57c7c;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .contato-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .contato-item {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .contato-item a {
+            color: #b57c7c;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whatsapp-btn, .instagram-btn {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #d4a5a5;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .sobre-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contato-info {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <!-- IMAGEM: agora com caminho para a pasta imagens -->
+                <img src="imagens/logo.jpg" alt="Delícias da Glorinha">
+            </div>
+            <nav>
+                <ul>
+                    <li><a onclick="scrollToSection('produtos')">Produtos</a></li>
+                    <li><a onclick="scrollToSection('sobre')">Sobre</a></li>
+                    <li><a onclick="scrollToSection('faq')">FAQ</a></li>
+                    <li><a onclick="scrollToSection('contato')">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <!-- IMAGEM: agora com caminho para a pasta imagens -->
+            <img src="imagens/logo.jpg" alt="Delícias da Glorinha">
+            <h1>Amor em forma de doces</h1>
+            <p>Preparado com técnica e carinho, cada doce é uma expressão de amor. Descubra o sabor da confeitaria artesanal feita especialmente para você.</p>
+        </div>
+    </section>
+
+    <section id="produtos" class="produtos">
+        <div class="container">
+            <h2>Nossas Delícias</h2>
+            <div class="cards">
+                <div class="card">
+                    <!-- IMAGEM: agora com caminho para a pasta imagens -->
+                    <img src="imagens/bolo-festa.png" alt="Bolo de Festa">
+                    <h3>Bolo de Festa</h3>
+                    <p>Bolos decorados com amor para tornar sua festa inesquecível. Diversos sabores e decorações personalizadas.</p>
+                    <a href="https://wa.me/5511956521260?text=Olá!%20Gostaria%20de%20informações%20sobre%20Bolos%20de%20Festa" class="btn" target="_blank">Encomendar</a>
+                </div>
+                <div class="card">
+                    <!-- IMAGEM: agora com caminho para a pasta imagens -->
+                    <img src="imagens/docinhos.png" alt="Docinhos Gourmet">
+                    <h3>Docinhos Gourmet</h3>
+                    <p>Brigadeiros, trufas e docinhos especiais. Perfeitos para festas, presentes ou aquele mimo especial.</p>
+                    <a href="https://wa.me/5511956521260?text=Olá!%20Gostaria%20de%20informações%20sobre%20Docinhos" class="btn" target="_blank">Encomendar</a>
+                </div>
+                <div class="card">
+                    <!-- IMAGEM: agora com caminho para a pasta imagens -->
+                    <img src="imagens/variados.png" alt="Variados">
+                    <h3>Variados</h3>
+                    <p>Bolos de pote, fatias e outras delícias. Praticidade e sabor em cada colherada.</p>
+                    <a href="https://wa.me/5511956521260?text=Olá!%20Gostaria%20de%20informações%20sobre%20os%20produtos%20variados" class="btn" target="_blank">Encomendar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="sobre">
+        <div class="container sobre-content">
+            <div class="sobre-texto">
+                <h2>Sobre a Glória</h2>
+                <p>Olá, prazer! Sou a Glória Maria, tenho 20 anos e sou apaixonada pela área da Cozinha. Desde pequenina eu gostava de ficar observando o que minha mãe e avó faziam para eu poder ajudar ou até mesmo fazer também. Experimentava tudo e vivia fazendo várias perguntas: "Mamãe, o que é isso?" "Vovó, pode me ensinar a fazer essa rosquinha?" "Mamãe, me dá um pedaço?" "Vovó, posso raspar a bacia da massa de bolo?" Dizem que foi ali que minha vontade de ser chef começou (risos).</p>
+                <p>Fiz dois cursos pelo Senac: um Técnico em Confeitaria (pelo Senac SBC) e um de Cozinheiro (pelo Senac Águas de São Pedro) e irei começar a minha jornada na Gastronomia em breve! Gosto muito da Confeitaria, mas sinto que a cozinha quente me puxa mais também, apesar de morrer de medo dos pratos salgados 😝</p>
+                <p>Gosto de transformar um alimento em algo a mais: uma memória, um abraço quentinho. Sinto que só a comida pode fazer você viajar entre espaços que só você tem acesso, como aquela tarde na casa da vó, comendo um bolinho caseiro de maçã quentinho!</p>
+                <p><em>Que venham muitos desafios e momentos ótimos sendo uma confeiteira/cozinheira. Conto com vocês pra sempre estar ao meu lado.</em></p>
+            </div>
+            <div class="sobre-imagem">
+                <!-- IMAGEM: agora com caminho para a pasta imagens -->
+                <img src="imagens/foto-chefe.png" alt="Glória Maria - Chef">
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2>Perguntas Frequentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-pergunta">
+                    <span>💳 Preciso pagar um sinal?</span>
+                    <span style="font-size: 1.5em;">▼</span>
+                </div>
+                <div class="faq-resposta">
+                    Sim, para confirmar sua encomenda é necessário o pagamento de 50% do valor total como sinal. O restante pode ser combinado na retirada/entrega.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-pergunta">
+                    <span>🚚 Como é feita a entrega?</span>
+                    <span style="font-size: 1.5em;">▼</span>
+                </div>
+                <div class="faq-resposta">
+                    A entrega é combinada individualmente. O valor do frete varia de acordo com a localização (atendemos principalmente ABC Paulista). Entre em contato para simular o valor.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-pergunta">
+                    <span>📅 Qual a antecedência mínima para encomendas?</span>
+                    <span style="font-size: 1.5em;">▼</span>
+                </div>
+                <div class="faq-resposta">
+                    Pedimos uma antecedência mínima de 5 dias para encomendas, garantindo que tudo seja preparado com calma e carinho.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-pergunta">
+                    <span>📍 Onde vocês estão localizados?</span>
+                    <span style="font-size: 1.5em;">▼</span>
+                </div>
+                <div class="faq-resposta">
+                    Estamos localizados no ABC Paulista. Atendemos toda a região.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="contato">
+        <div class="container">
+            <h2>Vamos criar algo especial?</h2>
+            <p>Entre em contato para fazer sua encomenda ou tirar dúvidas. Estou pronta para tornar seu evento ainda mais doce!</p>
+            
+            <div class="contato-info">
+                <div class="contato-item">
+                    <a href="https://www.instagram.com/_.deliciasdaglorinha_/" target="_blank">
+                        📷 Instagram: @_.deliciasdaglorinha_
+                    </a>
+                </div>
+                <div class="contato-item">
+                    <a href="https://wa.me/5511956521260" target="_blank">
+                        📱 WhatsApp: (11) 95652-1260
+                    </a>
+                </div>
+                <div class="contato-item">
+                    <span>📍 Localização: ABC Paulista</span>
+                </div>
+            </div>
+
+            <div class="whatsapp-btn">
+                <a href="https://wa.me/5511956521260" class="btn" target="_blank">📲 Fale pelo WhatsApp</a>
+            </div>
+            <div class="instagram-btn">
+                <a href="https://www.instagram.com/_.deliciasdaglorinha_/" class="btn" target="_blank">📸 Siga no Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Delícias da Glorinha. Todos os direitos reservados.</p>
+            <p>Feito com ❤️ e muito sabor no ABC Paulista</p>
+        </div>
+    </footer>
+
+    <script>
+        // Funcionalidade do FAQ (accordion)
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('ativo');
+            });
+        });
+
+        // Função para rolagem suave
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            }
+        }
+    </script>
+</body>
+</html>
